@@ -5,8 +5,9 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class WindowControl extends JPanel{
-    private Plane plane;
-    JButton btnCreate = new JButton("Создать");
+    private ITransport plane;
+    JButton btnCreatePlane = new JButton("Создать самолет");
+    JButton btnCreateSeaPlane=new JButton("Создать гидросамолет");
     JButton btnUp = new JButton(new ImageIcon("src/up.png"));
     JButton btnDown = new JButton(new ImageIcon("src/down.png"));
     JButton btnLeft = new JButton(new ImageIcon("src/left.png"));
@@ -53,19 +54,29 @@ public class WindowControl extends JPanel{
         btnLeft.setActionCommand("Left");
         btnRight.setActionCommand("Right");
 
-        addButton(btnCreate, 8, 8, 98, 43);
+        addButton(btnCreatePlane, 8, 8, 144, 43);
+        addButton(btnCreateSeaPlane, 160, 8, 174, 43);
         addButton(btnUp, 709, 372, 30, 30);
         addButton(btnDown, 709, 408, 30, 30);
         addButton(btnLeft, 673, 408, 30, 30);
         addButton(btnRight, 745, 408, 30, 30);
 
-        btnCreate.addActionListener(new ActionListener() {
+        btnCreatePlane.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Random rand = new Random();
-                plane = new Plane();
-                plane.Init(rand.nextInt(100) + 300, rand.nextInt(1000) + 2000, Color.cyan, Color.red, true, true);
+                plane = new Plane(rand.nextInt(100) + 300, rand.nextInt(1000) + 2000, Color.cyan);
                 plane.SetPosition(rand.nextInt(10) + 100, rand.nextInt(50) + 100, getWidth(), getHeight());
+                drawAll();
+            }
+        });
+
+        btnCreateSeaPlane.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Random rand = new Random();
+                plane = new SeaPlane(rand.nextInt(100)+300, rand.nextInt(1000)+2000, Color.cyan, Color.red, true, true);
+                plane.SetPosition(rand.nextInt(50)+100, rand.nextInt(50)+100, getWidth(), getHeight());
                 drawAll();
             }
         });

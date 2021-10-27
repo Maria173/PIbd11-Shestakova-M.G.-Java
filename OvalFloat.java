@@ -1,8 +1,12 @@
 import java.awt.*;
 
-public class Floats {
-    private NumbFloats numbFloats;
-    private static int planeHeight;
+public class OvalFloat implements IFloat {
+    protected NumbFloats numbFloats;
+    protected static int planeHeight;
+
+    public OvalFloat(int planeHeight){
+        this.planeHeight = planeHeight;
+    }
 
     public void setNumbFloats(int numbFloats){
         this.numbFloats = NumbFloats.values()[numbFloats / 2];
@@ -15,9 +19,5 @@ public class Floats {
             g2d.setColor(Color.black);
             g2d.drawOval(startX, startY + 80 + i * planeHeight / 15, 160, 4);
         }
-    }
-    
-    public void Init(int planeHeight){
-        this.planeHeight = planeHeight;
     }
 }

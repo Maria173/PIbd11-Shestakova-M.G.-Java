@@ -1,12 +1,17 @@
 import java.awt.*;
 
-public class LineFloat extends OvalFloat {
+public class LineFloat implements IFloat {
+    protected NumbFloats numbFloats;
+    protected static int planeHeight;
 
-    public LineFloat(int planeHeight){
-        super(planeHeight);
+    public void Init(int planeHeight){
+        this.planeHeight = planeHeight;
     }
 
-    @Override
+    public void setNumbFloats(int numbFloats){
+        this.numbFloats = NumbFloats.values()[numbFloats / 2];
+    }
+
     public void drawFloats(Color dopColor, Graphics g, int startX, int startY){
         for(int i = 0; i < numbFloats.ordinal() * 2; i++){
             g.setColor(dopColor);

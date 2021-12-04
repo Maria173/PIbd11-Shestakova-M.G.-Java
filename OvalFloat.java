@@ -4,7 +4,7 @@ public class OvalFloat implements IFloat {
     protected NumbFloats numbFloats;
     protected static int planeHeight;
 
-    public OvalFloat(int planeHeight){
+    public void Init(int planeHeight){
         this.planeHeight = planeHeight;
     }
 

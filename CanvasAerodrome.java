@@ -6,7 +6,7 @@ public class CanvasAerodrome extends JFrame{
         setTitle("Аэродром");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1320, 670);
-        setLocation(300, 300);
+        setLocation(200, 100);
         add(windowControlAerodrome);
         setVisible(true);
     }

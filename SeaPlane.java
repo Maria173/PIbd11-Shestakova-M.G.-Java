@@ -40,22 +40,36 @@ public class SeaPlane extends Plane{
             Random rand = new Random();
             switch(rand.nextInt(3)){
                 case 0:
-                    floats = new OvalFloat(planeHeight);
+                    floats = new OvalFloat();
                     break;
                 case 1:
-                    floats = new SquareFloat(planeHeight);
+                    floats = new SquareFloat();
                     break;
                 case 2:
-                    floats = new LineFloat(planeHeight);
+                    floats = new LineFloat();
                     break;
             }
             floats.setNumbFloats(2 + rand.nextInt((8 - 2) / 2) * 2);
+            floats.Init(planeHeight);
+        }
+    }
+
+    public void setFloats(IFloat floats){
+        this.floats = floats;
+        floats.Init(planeHeight);
+        Random rand =new Random();
+        if(FloatSpoiler){
+            floats.setNumbFloats(2 + rand.nextInt((8 - 2) / 2) * 2);
+        }
+        else{
+            floats.setNumbFloats(0);
         }
     }
 
     @Override
     public void DrawTransport(Graphics g){
         super.DrawTransport(g);
+        g.setColor(DopColor);
 
         if (ScrewSpoiler){
             g.drawLine(startX + 215, startY + 70, startX + 185, startY + 30);

@@ -13,9 +13,16 @@ public class WindowControl extends JPanel{
     JButton btnLeft = new JButton(new ImageIcon("src/left.png"));
     JButton btnRight = new JButton(new ImageIcon("src/right.png"));
 
-    private void drawAll(){
-        plane.DrawTransport(getGraphics());
-        paintComponents(getGraphics());
+    private void Draw(Graphics g){
+        plane.DrawTransport(g);
+    }
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        Draw(g);
+    }
+    public void SetPlane(ITransport plane){
+        this.plane = plane;
+        this.plane.SetPosition(50, 50, 818, 497);
     }
 
     public class Click implements ActionListener{
@@ -36,7 +43,7 @@ public class WindowControl extends JPanel{
                     plane.MoveTransport(Direction.Right);
                     break;
             }
-            drawAll();
+            repaint();
         }
     }
 
@@ -67,7 +74,7 @@ public class WindowControl extends JPanel{
                 Random rand = new Random();
                 plane = new Plane(rand.nextInt(100) + 300, rand.nextInt(1000) + 2000, Color.cyan);
                 plane.SetPosition(rand.nextInt(10) + 100, rand.nextInt(50) + 100, getWidth(), getHeight());
-                drawAll();
+                repaint();
             }
         });
 
@@ -77,7 +84,7 @@ public class WindowControl extends JPanel{
                 Random rand = new Random();
                 plane = new SeaPlane(rand.nextInt(100)+300, rand.nextInt(1000)+2000, Color.cyan, Color.red, true, true);
                 plane.SetPosition(rand.nextInt(50)+100, rand.nextInt(50)+100, getWidth(), getHeight());
-                drawAll();
+                repaint();
             }
         });
 

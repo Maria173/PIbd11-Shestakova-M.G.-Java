@@ -47,32 +47,30 @@ public class Plane extends Vehicle {
     
     @Override
     public void DrawTransport(Graphics g){
-        g.clearRect(0, 0, 818, 497);
-        Graphics2D g2d=(Graphics2D)g;
+        g.setColor(Color.black);
 
-        g2d.setPaint(Color.black);
-        g2d.drawRect(startX + 5, startY + 30, 150, 40);
-        g2d.drawOval(startX, startY + 25, 40, 10);
-        g2d.drawOval(startX + 40, startY + 45, 80, 10);
+        g.drawRect(startX + 5, startY + 30, 150, 40);
+        g.drawOval(startX, startY + 25, 40, 10);
+        g.drawOval(startX + 40, startY + 45, 80, 10);
 
-        g2d.drawLine(startX + 40, startY + 70, startX + 30, startY+ 80);
-        g2d.drawLine(startX + 40, startY + 70, startX + 50, startY + 80);
-        g2d.drawOval(startX + 25, startY + 80, 10, 10);
-        g2d.drawOval(startX + 45, startY + 80, 10, 10);
+        g.drawLine(startX + 40, startY + 70, startX + 30, startY+ 80);
+        g.drawLine(startX + 40, startY + 70, startX + 50, startY + 80);
+        g.drawOval(startX + 25, startY + 80, 10, 10);
+        g.drawOval(startX + 45, startY + 80, 10, 10);
 
-        g2d.drawLine(startX + 150, startY + 70, startX + 150, startY + 80);
-        g2d.drawOval(startX + 145, startY + 80, 10, 10);
+        g.drawLine(startX + 150, startY + 70, startX + 150, startY + 80);
+        g.drawOval(startX + 145, startY + 80, 10, 10);
 
-        g2d.drawLine(startX + 155, startY + 70, startX + 200, startY + 50);
-        g2d.drawLine(startX + 155, startY + 30, startX + 200, startY + 50);
-        g2d.drawLine(startX + 155, startY + 50, startX + 200, startY + 50);
+        g.drawLine(startX + 155, startY + 70, startX + 200, startY + 50);
+        g.drawLine(startX + 155, startY + 30, startX + 200, startY + 50);
+        g.drawLine(startX + 155, startY + 50, startX + 200, startY + 50);
 
-        g2d.drawLine(startX + 5, startY, startX + 5, startY + 30);
-        g2d.drawLine(startX + 5, startY, startX + 50, startY + 30);
+        g.drawLine(startX + 5, startY, startX + 5, startY + 30);
+        g.drawLine(startX + 5, startY, startX + 50, startY + 30);
 
-        g2d.setColor(MainColor);
+        g.setColor(MainColor);
 
-        g2d.fillOval(startX, startY + 25, 40, 10);
-        g2d.fillOval(startX + 40, startY + 45, 80, 10);
+        g.fillOval(startX, startY + 25, 40, 10);
+        g.fillOval(startX + 40, startY + 45, 80, 10);
     }
 }

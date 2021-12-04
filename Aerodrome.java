@@ -18,15 +18,15 @@ public class Aerodrome<T extends ITransport, U extends IFloat> {
         PicHeight = picHeight;
     }
 
-    public int addPlane(T skiff){
+    public int addPlane(T plane){
         int i = 0;
         while(i<places.length && places[i]!=null){
             i++;
         }
         if(i<places.length && places[i]==null){
-            skiff.SetPosition(5 + i%width * placeSizeWidth, 5 + i /width* placeSizeHeight,
+            plane.SetPosition(5 + i%width * placeSizeWidth, 5 + i /width* placeSizeHeight,
                     PicWidth, PicHeight);
-            places[i] = skiff;
+            places[i] = plane;
             return i;
         }
         else {

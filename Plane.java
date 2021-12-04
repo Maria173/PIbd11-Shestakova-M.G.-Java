@@ -10,7 +10,7 @@ public class Plane extends Vehicle {
         MainColor = mainColor;
     }
 
-    protected Plane(int maxSpeed, float weight, Color mainColor, int skiffWidth, int skiffHeight){
+    protected Plane(int maxSpeed, float weight, Color mainColor, int planeWidth, int planeHeight){
         MaxSpeed = maxSpeed;
         Weight = weight;
         MainColor = mainColor;

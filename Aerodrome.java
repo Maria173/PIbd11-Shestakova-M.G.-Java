@@ -1,7 +1,9 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Aerodrome<T extends ITransport, U extends IFloat> {
-    private Object[] places;
+    private ArrayList<T> places;
+    private int maxCount;
     private int PicWidth;
     private int PicHeight;
     private int placeSizeWidth = 230;
@@ -13,21 +15,23 @@ public class Aerodrome<T extends ITransport, U extends IFloat> {
     {
         width = picWidth / placeSizeWidth;
         height = picHeight / placeSizeHeight;
-        places = new Object[width * height];
+        maxCount = width * height;
+        places = new ArrayList<T>();
         PicWidth = picWidth;
         PicHeight = picHeight;
     }
 
-    public int addPlane(T plane){
-        int i = 0;
-        while(i<places.length && places[i]!=null){
-            i++;
+    public T getPlane(int index){       // в jqvq нет возможности сделать индексатор, как в C#
+        if(index>-1 && index<places.size()){
+            return places.get(index);
         }
-        if(i<places.length && places[i]==null){
-            plane.SetPosition(5 + i%width * placeSizeWidth, 5 + i /width* placeSizeHeight,
-                    PicWidth, PicHeight);
-            places[i] = plane;
-            return i;
+        return null;
+    }
+
+    public int addPlane(T plane){
+        if(places.size()<maxCount){
+            places.add(plane);
+            return places.size()-1;
         }
         else {
             return -1;
@@ -35,20 +39,18 @@ public class Aerodrome<T extends ITransport, U extends IFloat> {
     }
 
     public T remove(int index){
-        if(index>=places.length || index < 0) { return null; }
-        if (places[index] != null)
-        {
-            T return_T = (T)places[index];
-            places[index] = null;
-            return return_T;
+        if(index>-1 && index<places.size()){
+            T removePlane=places.get(index);
+            places.remove(index);
+            return removePlane;
         }
         else { return null; }
     }
 
     public boolean moreOrEqual(int count){          // >=
         int fullness = 0;
-        for (int i = 0; i < places.length; ++i){
-            if (places[i] != null){
+        for (int i = 0; i < places.size(); ++i){
+            if (places.get(i) != null){
                 fullness += 1;
             }
         }
@@ -57,8 +59,8 @@ public class Aerodrome<T extends ITransport, U extends IFloat> {
 
     public boolean lessOrEqual(int count){         // <=
         int fullness = 0;
-        for (int i = 0; i < places.length; ++i){
-            if (places[i] != null){
+        for (int i = 0; i < places.size(); ++i){
+            if (places.get(i) != null){
                 fullness += 1;
             }
         }
@@ -69,12 +71,10 @@ public class Aerodrome<T extends ITransport, U extends IFloat> {
     {
         g.setColor(Color.BLACK);
         DrawMarking(g);
-        for(int i=0; i<places.length; i++)
+        for(int i=0; i<places.size(); i++)
         {
-            if (places[i] != null) {
-                T place = (T) places[i];
-                place.DrawTransport(g);
-            }
+            places.get(i).SetPosition(5 + i % 5 * placeSizeWidth + 5, i /5 * placeSizeHeight + 5, PicWidth, PicHeight);
+            places.get(i).DrawTransport(g);
         }
     }
     private void DrawMarking(Graphics g)

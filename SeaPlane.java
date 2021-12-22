@@ -56,15 +56,14 @@ public class SeaPlane extends Plane{
     @Override
     public void DrawTransport(Graphics g){
         super.DrawTransport(g);
-        Graphics2D g2d=(Graphics2D)g;
 
         if (ScrewSpoiler){
-            g2d.drawLine(startX + 215, startY + 70, startX + 185, startY + 30);
-            g2d.drawLine(startX + 185, startY + 70, startX + 215, startY + 30);
+            g.drawLine(startX + 215, startY + 70, startX + 185, startY + 30);
+            g.drawLine(startX + 185, startY + 70, startX + 215, startY + 30);
         }
 
         if(FloatSpoiler){
-            floats.drawFloats(DopColor, g2d, startX, startY);
+            floats.drawFloats(DopColor, g, startX, startY);
         }
     }
 }

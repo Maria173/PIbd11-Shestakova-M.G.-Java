@@ -20,14 +20,14 @@ public class WindowControlAerodrome extends JPanel{
     JButton btnAddAerodrome = new JButton("Добавить аэродром");
     JButton btnRemoveAerodrome = new JButton("Удалить аэродром");
     JButton btnShowPlane = new JButton("Показать");
-    JButton btnParkingPlane = new JButton("<html>Поставить<br>самолет");
-    JButton btnParkingSeaplane = new JButton("<html>Поставить<br>гидросамолет");
+    JButton btnAddPlane = new JButton("<html>Добавить<br>самолет");
     JButton btnTake = new JButton("Забрать");
     JLabel labelTake = new JLabel("Забрать самолет:");
     JLabel labelPlace = new JLabel("Место: ");
     JFormattedTextField txtIndexPlace;
     private ITransport plane;
     CanvasPlane canvasPlane = new CanvasPlane();
+    WindowPlaneConfig windowPlaneConfig;
 
     private void Draw(Graphics g){
         if(jListAerodromes.getSelectedValue()!=null){
@@ -38,6 +38,19 @@ public class WindowControlAerodrome extends JPanel{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Draw(g);
+    }
+
+    protected void configPlane(){
+        windowPlaneConfig=new WindowPlaneConfig(this);
+        windowPlaneConfig.setVisible(true);
+    }
+    public void addPlane(ITransport pl){
+        if((aerodromeCollection.getAerodrome(jListAerodromes.getSelectedValue()).addPlane(pl))>-1){
+            repaint();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Аэродром переполнен");
+        }
     }
 
     public void addButton(JComponent btn, int btnX, int btnY, int btnWidth, int btnHeigth){
@@ -83,8 +96,7 @@ public class WindowControlAerodrome extends JPanel{
         addButton(btnRemoveAerodrome, 1018, 223, 172, 32);
         addButton(labelTake, 1020, 427, 189, 17);
         addButton(labelPlace, 1030, 457, 57, 18);
-        addButton(btnParkingPlane, 1021, 272, 149, 62);
-        addButton(btnParkingSeaplane, 1021, 349, 149, 62);
+        addButton(btnAddPlane, 1021, 272, 149, 62);
         addButton(btnTake, 1050, 507, 95, 31);
         addButton(btnShowPlane, 1050, 560, 95, 31);
         NumberFormat format = NumberFormat.getInstance();
@@ -93,39 +105,10 @@ public class WindowControlAerodrome extends JPanel{
         txtIndexPlace = new JFormattedTextField(formatter);
         addButton(txtIndexPlace, 1110, 457, 42, 22);
 
-        btnParkingPlane.addActionListener(new ActionListener() {
+        btnAddPlane.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Color mainColor = JColorChooser.showDialog( WindowControlAerodrome.this, "Выберите цвет самолета", Color.BLUE );
-                if (mainColor != null) {
-                    plane = new Plane(100, 1000, mainColor);
-                    if (aerodromeCollection.getAerodrome(jListAerodromes.getSelectedValue()).addPlane(plane) >-1) {
-                        repaint();
-                    } else {
-                        JOptionPane.showMessageDialog(WindowControlAerodrome.this, "Аэродром переполнен", "Сообщение", JOptionPane.INFORMATION_MESSAGE );
-                    }
-                }
-            }
-        });
-        btnParkingSeaplane.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Color mainColor = JColorChooser.showDialog( WindowControlAerodrome.this, "Выберите цвет гидросамолета", Color.BLUE );
-                if(mainColor!=null){
-                    Color dopColor = JColorChooser.showDialog( WindowControlAerodrome.this, "Выберите цвет гидросамолета", Color.BLUE );
-                    if(dopColor!=null){
-                        plane = new SeaPlane(100, 1000, mainColor, dopColor,
-                                true, true);
-                                if ((aerodromeCollection.getAerodrome(jListAerodromes.getSelectedValue()).addPlane(plane)>-1))
-                        {
-                            repaint();
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(WindowControlAerodrome.this, "Аэродром переполнен", "Сообщение", JOptionPane.INFORMATION_MESSAGE );
-                        }
-                    }
-                }
+                configPlane();
             }
         });
         btnTake.addActionListener(new ActionListener() {
